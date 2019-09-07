@@ -1,0 +1,18 @@
+{% extends "base_quote.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9 col-md-8 col-lg-5 mx-auto">
+            <div class="content-section">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <h4>Do you really want to delete your account: <small class="text-muted">{{ user.first_name }} {{ user.last_name }}</small> as <small>{{ user.username }}</small></h4>
+                    <input class="btn btn-danger btn-lg" type="submit" value="Yes Delete">
+                    <a class="btn btn-primary btn-lg" href="{% url 'account-home' %}" role="button">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

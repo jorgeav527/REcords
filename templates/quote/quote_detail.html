@@ -1,0 +1,76 @@
+{% extends "base_quote.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <article>
+    <div class="row mb-2">
+      <div class="col-sm-9 col-lg-8 mx-auto">
+        <div class="no-gutters border rounded flex-md-row mb-4 shadow">
+          <div class="col p-4 d-flex flex-column">
+              <div class="btn-group btn-group-sm mb-2" role="group" aria-label="Basic example">
+                  {% for category in quote.category.all %}
+                  <a type="button" class="btn btn-secondary" href="#">{{ category }}</a>
+                  {% endfor %}
+              </div>
+            <p class="font-italic">"{{ quote.quote }}"</p>
+            <h6 class="text-right">{{ quote.author_quote }}</h6>
+            <hr class="my-2">
+            <a href="#"><img class="position-absolute rounded-circle article-img mt-0.5" src="{{ quote.author.profile.image.url }}"></a>
+            <strong class="d-inline-block mb-2 text-primary text-right">{{ quote.status }}</strong>
+            <div class="mb-1 text-muted text-right">{{ quote.updated_quote }}</div>
+            <small class="text-muted text-capitalize text-right"><a href="#">{{ quote.author.first_name }} {{quote.author.last_name }}</a></small>
+            <div class="btn-group mt-2">
+              {% if quote.author == user %}
+              <a class="btn btn-sm btn-outline-secondary" href="{% url 'quote-update' quote.id %}" role="button">Edit</a>
+              <a class="btn btn-sm btn-outline-secondary" href="{% url 'quote-delete' quote.id %}" role="button">Delete</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-9 col-lg-8 mx-auto">
+        <div class="no-gutters border rounded flex-md-row mb-4 shadow">
+          <div class="col p-4 d-flex flex-column">
+            {% with comments.count as total_comments %}
+            <h5 class="text-primary text-right">{{ total_comments }} comment{{ total_comments|pluralize }}</h5>
+            {% endwith %}
+            {% for comment in comments %}
+            <hr class="my-3">
+            <div class="d-flex flex-column my-3">
+              <small><img class="position-absolute rounded-circle article-img-comment mt-0.5" src="{{ comment.user.profile.image.url }}"></small>            
+              <small class="ml-5 text-primary">
+                By  {{ comment.user }}; {{ comment.created|timesince }} ago ({{ forloop.counter }})
+              </small>
+              <span class="ml-5">{{ comment.comment|linebreaks }}</span>
+              <div class="btn-group">
+                {% if comment.user == user %}
+                <a class="btn btn-sm btn-outline-secondary" href="{% url 'edit-comment' quote.id comment.id %}" role="button">Edit</a>
+                <a class="btn btn-sm btn-outline-secondary" href="{% url 'delete-comment' quote.id comment.id %}" role="button">Delete</a>
+                {% endif %}
+              </div>
+            </div>  
+            {% empty %}
+                <p>There are no comments yet.</p>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      
+      {% if request.user.is_authenticated %}
+      <div class="col-sm-9 col-lg-8 mx-auto">     
+        <div class="no-gutters border rounded flex-md-row mb-4 shadow">
+          <div class="p-4 d-flex flex-column">
+            <h2>Add a new comment</h2>
+            <form action="." method="POST">
+              {% csrf_token %}
+              {{ comment_form|crispy }}
+              <p><input class="btn btn-primary btn-lg btn-block" type="submit" value="Add comment"></p>
+            </form>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+
+    </div>
+  </article>
+{% endblock content %}

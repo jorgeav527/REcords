@@ -1,0 +1,62 @@
+{% extends "base_quote.html" %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+      <div class="card shadow">
+        <div class="card-body">
+          <h2 class="card-title text-center">About</h2>
+          <hr class="my-3">
+          <p class="text-justify">
+            This app is created to write quotes, phrases, letters of music that remembers you someday, 
+            some face, some time that get you back into the past for a pleasant REcords in the present, 
+            and help us in the future to REcords mistakes right or wrong that you would like to always 
+            have with you, and said in your speech always in the right moment.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-5">
+    {% for object in object_list %}
+    <div class="col-lg-4 col-md-6">
+      <div class="row no-gutters border rounded flex-md-row mb-4 shadow">
+        <div class="col p-4 d-flex flex-column">
+
+          <div class="btn-group btn-group-sm mb-2" role="group" aria-label="Basic example">
+              {% for category in object.category.all %}
+              <a type="button" class="btn btn-secondary" href="#">{{ category }}</a>
+              {% endfor %}
+          </div>
+
+          <p class="card-text font-italic">"{{ object.quote }}"</p>
+          <h6 class="text-right">{{ object.author_quote }}</h6>
+          <hr class="my-1">
+          <a href="{% url 'account-quotes-home' %}"><img class="position-absolute rounded-circle article-img mt-0.5" src="{{ object.author.profile.image.url }}"></a> 
+          {% if object.status == "draft" %}
+            <small class="mb-2 text-warning text-right">{{ object.status }}</small>
+          {% elif object.status == "published" %}
+            <small class="mb-2 text-success text-right">{{ object.status }}</small>
+          {% endif %} 
+          <small class="text-muted text-right">{{ object.updated_quote }}</small>
+          <small class="text-muted text-capitalize text-right"><a href="{% url 'account-quotes-home' %}">{{ object.author.first_name }} {{object.author.last_name }}</a></small>
+
+          <div class="btn-group mt-2">
+            {% if object.author == user %}
+            <a class="btn btn-sm btn-outline-secondary" href="{% url 'quote-detail' object.id %}" role="button">Coments</a>
+            <a class="btn btn-sm btn-outline-secondary" href="{% url 'quote-update' object.id %}" role="button">Edit</a>
+            <a class="btn btn-sm btn-outline-secondary" href="{% url 'quote-delete' object.id %}" role="button">Delete</a>
+            {% else %}
+            <a class="btn btn-sm btn-outline-secondary" href="{% url 'quote-detail' object.id %}" role="button">Coments</a>
+            {% endif %}
+          </div>
+
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+</div>
+{% endblock content%}s

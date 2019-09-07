@@ -1,0 +1,50 @@
+body {
+    background: #fafafa;
+    color: #333333;
+}
+  
+h2, h3, h4, h5, h6 {
+    color: #444444;
+}
+
+.records {
+    font-size: 120%;
+    color: dodgerblue;
+    letter-spacing: 2px;
+    font-weight: bold;
+}
+  
+ul {
+    margin: 0;
+}
+
+hr {
+    width: 100%;
+    border-top: 1px solid black;
+}
+
+  
+.content-profile {
+    background: #ffffff;
+    border: 1px solid black;
+}
+
+  
+.article-img {
+    height: 60px;
+    width: 60px;
+    /* margin-right: 16px; */
+}
+
+.article-img-comment {
+    height: 32px;
+    width: 32px;
+}
+  
+.account-img {
+    height: 110px;
+    width: 110px;
+    margin-right: 20px;
+    margin-bottom: 16px;
+}
+  

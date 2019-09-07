@@ -1,0 +1,37 @@
+<header class="">
+    <!-- Responsive NavBar Hamburger Toogle -->
+    {% if user.is_authenticated %}
+      <p class="text-center mt-2">Welcome <a href="{% url 'account-quotes-home' %}"><span class="font-italic">{{ user.username }}</span></a> to <span class="records">REcords</span></span></p>
+      {% else %}   
+      <div class="text-center records my-1">REcords</div>
+    {% endif %}
+    <nav class="navbar navbar-expand-md navbar-light shadow" style="background-color: #ffffff;">
+      <div class="container">
+        <!-- Navbar Left Side -->
+        <div class="nav">
+          <a class="nav-link" href="{% url 'account-home' %}">Home</a>
+          <a class="nav-link" href="{% url 'account-about' %}">About</a>
+          <a class="nav-link" href="{% url 'account-contact' %}">Contact</a>
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarToggle">
+          <!-- Navbar Right Side -->
+          <div class="navbar-nav">
+            {% if user.is_authenticated %}
+              <a class="nav-item nav-link" href="{% url 'quotes-home' %}">Quotes</a>
+              <a class="nav-item nav-link" href="{% url 'account-quotes-home' %}">My Quotes</a>
+              <a class="nav-item nav-link" href="{% url 'quote-create' %}">New Quote</a>
+              <a class="nav-item nav-link" href="{% url 'account-profile' %}">Profile</a>
+              <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+            {% else %}
+              <a class="nav-item nav-link" href="{% url 'quotes-home' %}">Quotes</a>
+              <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+              <a class="nav-item nav-link" href="{% url 'account-register' %}">Sign Up</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>

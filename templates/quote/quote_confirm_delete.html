@@ -1,0 +1,24 @@
+{% extends "base_quote.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+      <div class="col-sm-9 col-lg-8 mx-auto">
+        <div class="card shadow">
+          <div class="card-body">
+            <h2 class="card-title text-center">Delete Quote</h2>
+            <hr class="my-3">
+            <div >              
+              <form method="POST">
+                  {% csrf_token %}
+                  <h4>Do you really want to delete the quote: <small class="text-muted">{{ object.quote }}</small> by <small>{{ object.author_quote }}</small></h4>
+                  <input class="btn btn-danger btn-lg" type="submit" value="Yes Delete">
+                  <a class="btn btn-primary btn-lg" href="{% url 'quote-detail' object.id %}" role="button">Cancel</a>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+{% endblock %}

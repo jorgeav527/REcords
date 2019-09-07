@@ -1,0 +1,51 @@
+{% extends "base_quote.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9 col-md-8 col-lg-5 mx-auto">
+            <div class="shadow no-gutters border rounded p-4 content-profile">
+                <div class="media">
+                    <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
+                    <div class="media-body">
+                        <h4 class="">{{ user.username }}</h4>
+                        <div><small class="text-secondary ">{{ user.email }}</small></div>
+                        <div><small class="text-secondary text-capitalize">{{ user.first_name }}</small></div>
+                        <div><small class="text-secondary text-capitalize">{{ user.last_name }}</small></div>
+                        <div><small class="text-secondary">{{ user.profile.date_of_birth }}</small></div>
+                    </div>
+                </div>
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ account_form|crispy }}
+                    {{ profile_form|crispy }}
+                    <input class="btn btn-primary btn-lg btn-block" type="submit" value="Update Profile">
+                </form>
+                <hr class="my-3">
+                <a class="btn btn-outline-secondary btn-lg mt-2 btn-block" href="{% url 'password_change' %}" role="button">Change Password</a>
+                <a class="btn btn-outline-danger btn-lg mt-2 btn-block" href="{% url 'account-delete' user.username %}" role="button">Delete Account</a>
+            </div>           
+        </div>
+        <div class="col-sm-9 col-md-8 col-lg-4 mx-auto">
+
+            {% for object in object_list %}
+                <div class="shadow no-gutters border rounded p-4 content-profile my-2">
+                    <div class="media">
+                        <img class="rounded-circle account-img" src="{{ object.image.url }}">
+                        <div class="media-body">
+                            <h4 class="">{{ object.user.username}}</h4>
+                            <div><small class="text-secondary ">{{ object.user.email }}</small></div>
+                            <div><small class="text-secondary text-capitalize">{{ object.user.first_name }}</small></div>
+                            <div><small class="text-secondary text-capitalize">{{ object.user.last_name }}</small></div>
+                            <div><small class="text-secondary">{{ object.date_of_birth }}</small></div>
+                            <!-- <div><small class="text-secondary">Quotes #falta</small></div> -->
+                            <!-- <div><small class="text-secondary">Comments #falta</small></div> -->
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}  
+        </div>
+    </div>
+</div>
+{% endblock %}

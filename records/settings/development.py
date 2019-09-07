@@ -3,12 +3,6 @@ from .base import *
 DEBUG = True
 ALLOWED_HOSTS = ['127.0.0.1']
 
-INSTALLED_APPS += [
-    'debug_toolbar'
-]
-
-MIDDLEWARE += ['debug_toolbar.middleware.DebugToolbarMiddleware',]
-
 # DEBUG TOOLBAR SETTINGS
 
 DEBUG_TOOLBAR_PANELS = [
@@ -25,14 +19,6 @@ DEBUG_TOOLBAR_PANELS = [
     'debug_toolbar.panels.logging.LoggingPanel',
     'debug_toolbar.panels.redirects.RedirectsPanel',
 ]
-
-def show_toolbar(request):
-    return True
-
-DEBUG_TOOLBAR_CONFIG = {
-    'INTERCEPT_REDIRECTS': False,
-    'SHOW_TOOLBAR_CALLBACK': show_toolbar
-}
 
 DATABASES = {
     'default': {
