@@ -35,6 +35,13 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'records.urls'
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'records_db.sqlite3'),
+    }
+}
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
